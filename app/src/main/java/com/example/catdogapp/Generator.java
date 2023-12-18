@@ -3,7 +3,10 @@ package com.example.catdogapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,12 +21,28 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Generator extends AppCompatActivity {
+    private String animalType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.generator);
 
-        String animalType = getIntent().getStringExtra("animalType");
+        Button button2 = findViewById(R.id.button2);
+        Button generate = findViewById(R.id.button);
+
+        generate.setOnClickListener(v -> {
+            Intent intent = new Intent(Generator.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+
+        button2.setOnClickListener(v -> {
+            Intent intent = new Intent(Generator.this, multiplechoice.class);
+            intent.putExtra("animalType", animalType );
+            startActivity(intent);
+        });
+
+        animalType = getIntent().getStringExtra("animalType");
         ImageView animalImage = findViewById(R.id.imageView);
         TextView factTextView = findViewById(R.id.textFact);
 
@@ -101,18 +120,34 @@ public class Generator extends AppCompatActivity {
         call.enqueue(new Callback<CatFact>() {
             @Override
             public void onResponse(Call<CatFact> call, Response<CatFact> response) {
-                if (response.isSuccessful()) {
-                    CatFact catFact = response.body();
-                    factTextView.setText(catFact != null ? catFact.getCatFact(): "No fact found");
+                if (response.isSuccessful() && response.body() != null) {
+                    String fact = response.body().getCatFact();
+                    if (isValidFact(fact)) {
+                        fact = truncateFact(fact, 100); // Adjust the max length as needed
+                        factTextView.setText(fact);
+                    } else {
+                        factTextView.setText(R.string.fact_not_suitable_for_display);
+                    }
+                } else {
+                    factTextView.setText(R.string.failed_to_load_fact);
                 }
             }
 
             @Override
             public void onFailure(Call<CatFact> call, Throwable t) {
-                factTextView.setText("Error fetching fact");
+                factTextView.setText(R.string.error_fetching_fact);
             }
         });
     }
+
+    private boolean isValidFact(String fact) {
+        return fact.matches("[A-Za-z0-9 .,?!'-]*");
+    }
+
+    private String truncateFact(String fact, int maxLength) {
+        return fact.length() > maxLength ? fact.substring(0, maxLength) + "..." : fact;
+    }
+
 
     private void loadDogFact(final TextView factTextView) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -132,11 +167,11 @@ public class Generator extends AppCompatActivity {
                 }
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onFailure(Call<DogFactResponse> call, Throwable t) {
                 factTextView.setText("Error fetching fact");
             }
         });
     }
-
 }

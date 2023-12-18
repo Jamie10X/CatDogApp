@@ -8,8 +8,8 @@
     tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="130dp"
-        android:layout_height="135dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,20 +20,21 @@
 
         <ImageButton
             android:id="@+id/dogImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="177dp"
+            android:layout_height="167dp"
             android:background="@drawable/dog"
-            android:onClick="dogClicked"/>
+            android:onClick="dogClicked"
+            android:contentDescription="@string/dog" />
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="129dp"
-        android:layout_height="44dp"
-        android:text="Cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cat"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="34sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,12 +45,12 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="129dp"
-        android:layout_height="44dp"
-        android:text="Dog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dog"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="34sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,13 +61,13 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="379dp"
-        android:layout_height="127dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="118dp"
         android:text="Which is your favorite?"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="48sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
@@ -74,8 +75,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="130dp"
-        android:layout_height="135dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +90,8 @@
             android:layout_width="177dp"
             android:layout_height="167dp"
             android:background="@drawable/cat"
-            android:onClick="catClicked" />
+            android:onClick="catClicked"
+            android:contentDescription="TODO" />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
