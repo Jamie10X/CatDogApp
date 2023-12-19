@@ -1,0 +1,19 @@
+{
+  "catTrivia": [
+    {
+      "question": "What is the group of words used to describe a cat's movement?",
+      "options": ["Gallop", "Flock", "Pounce"],
+      "answer": "Pounce"
+    },
+    {
+      "question": "Which cat breed is known for its lack of a tail?",
+      "options": ["Siamese", "Manx", "Persian"],
+      "answer": "Manx"
+    },
+    {
+      "question": "How many toes does a typical cat have on its front paws?",
+      "options": ["Four", "Five", "Six"],
+      "answer": "Five"
+    }
+  ]
+}

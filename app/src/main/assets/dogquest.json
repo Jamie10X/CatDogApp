@@ -1,0 +1,20 @@
+{
+  "dogTrivia": [
+    {
+      "question": "What breed of dog is known for its distinctive blue-black tongue?",
+      "options": ["Chow Chow", "Golden Retriever", "Siberian Husky"],
+      "answer": "Chow Chow"
+    },
+    {
+      "question": "Which dog breed is the smallest in the world?",
+      "options": ["Chihuahua", "Pomeranian", "Dachshund"],
+      "answer": "Chihuahua"
+    },
+    {
+      "question": "What is the most popular dog breed, according to the American Kennel Club?",
+      "options": ["Labrador Retriever", "German Shepherd", "Golden Retriever"],
+      "answer": "Labrador Retriever"
+    }
+  ]
+}
+
