@@ -2,6 +2,7 @@ package com.example.catdogapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.widget.Button;
@@ -36,8 +37,11 @@ public class multiplechoice extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.multiplechoice);
 
+        // Retrieving the animal type passed from the previous activity
+
         animalType = getIntent().getStringExtra("animalType");
 
+        // UI element setup
 
         questionTextView = findViewById(R.id.questionTextView);
         optionA = findViewById(R.id.optionA);
@@ -46,14 +50,31 @@ public class multiplechoice extends AppCompatActivity {
         optionsRadioGroup = findViewById(R.id.optionsRadioGroup);
         Button submitButton = findViewById(R.id.submit);
 
+        Button backbtn = findViewById(R.id.button3);
+
+        // OnClickListener for back button to navigate to Generator activity
+
+        backbtn.setOnClickListener(v -> {
+            Intent intent = new Intent(multiplechoice.this, Generator.class);
+            startActivity(intent);
+        });
+
+        // Load trivia questions and display the first one
+
         loadTriviaQuestions();
         displayNextQuestion(animalType);
+
+
+        // OnClickListener for submit button to check the answer and display the next question
 
         submitButton.setOnClickListener(v -> {
             checkAnswer();
             displayNextQuestion(animalType);
         });
     }
+
+    // Method to load trivia questions based on animal type
+
 
     private void loadTriviaQuestions() {
         try {
@@ -75,6 +96,8 @@ public class multiplechoice extends AppCompatActivity {
         }
     }
 
+    // Method to display the next trivia question
+
     private void displayNextQuestion(String animalType) {
         try {
             JSONArray triviaArray = animalType.equals("cat") ? catTrivia : dogTrivia;
@@ -90,6 +113,9 @@ public class multiplechoice extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
+    // Method to check if the selected answer is correct
 
     private void checkAnswer() {
         try {

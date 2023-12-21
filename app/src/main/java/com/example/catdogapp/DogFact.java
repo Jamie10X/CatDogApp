@@ -19,7 +19,7 @@ import java.util.List;
             return attributes != null ? attributes.body : null;
         }
 
-        public class Attributes {
+        public static class Attributes {
             private String body;
         }
     }

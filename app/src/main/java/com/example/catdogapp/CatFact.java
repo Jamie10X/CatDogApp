@@ -1,7 +1,7 @@
 package com.example.catdogapp;
 
-import com.google.gson.annotations.SerializedName;
 
+/** @noinspection unused*/
 public class CatFact {
 
     private String text;

@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cat"
+        android:paddingTop="10dp"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="35sp"
@@ -48,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dog"
+        android:paddingTop="10dp"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="35sp"
@@ -64,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="118dp"
-        android:text="Which is your favorite?"
+        android:text="@string/pet"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="40sp"
@@ -91,7 +93,7 @@
             android:layout_height="167dp"
             android:background="@drawable/cat"
             android:onClick="catClicked"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/imageDes" />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

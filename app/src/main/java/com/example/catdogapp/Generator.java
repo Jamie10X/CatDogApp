@@ -27,8 +27,12 @@ public class Generator extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.generator);
 
+        // Finding and setting up the 'generate' and 'button2' buttons from the layout
+
         Button button2 = findViewById(R.id.button2);
         Button generate = findViewById(R.id.button);
+
+        // OnClickListener for 'generate' button to navigate back to MainActivity
 
         generate.setOnClickListener(v -> {
             Intent intent = new Intent(Generator.this, MainActivity.class);
@@ -36,15 +40,25 @@ public class Generator extends AppCompatActivity {
         });
 
 
+        // OnClickListener for 'button2' to navigate to MultipleChoiceActivity with the animal type
+
         button2.setOnClickListener(v -> {
             Intent intent = new Intent(Generator.this, multiplechoice.class);
             intent.putExtra("animalType", animalType );
             startActivity(intent);
         });
 
+        // Retrieving the 'animalType' passed from the previous activity
+
         animalType = getIntent().getStringExtra("animalType");
+
+
+        // Setting up the ImageView and TextView for displaying the animal image and fact
+
         ImageView animalImage = findViewById(R.id.imageView);
         TextView factTextView = findViewById(R.id.textFact);
+
+        // Checking the animal type and loading the appropriate image and fact
 
         if (animalType != null) {
             if (animalType.equals("cat")) {
@@ -56,6 +70,9 @@ public class Generator extends AppCompatActivity {
             }
         }
     }
+
+
+    // Methods to load cat and dog images from their respective APIs using Retrofit and Picasso
 
     private void loadCatImage(ImageView catImage) {
 
@@ -108,6 +125,10 @@ public class Generator extends AppCompatActivity {
         });
     }
 
+
+    // Methods to load cat and dog images from their respective APIs using Retrofit and Picasso
+
+
     private void loadCatFact(final TextView factTextView) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://cat-fact.herokuapp.com/")
@@ -119,33 +140,39 @@ public class Generator extends AppCompatActivity {
 
         call.enqueue(new Callback<CatFact>() {
             @Override
-            public void onResponse(Call<CatFact> call, Response<CatFact> response) {
+            public void onResponse(@NonNull Call<CatFact> call, @NonNull Response<CatFact> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     String fact = response.body().getCatFact();
-                    if (isValidFact(fact)) {
-                        fact = truncateFact(fact, 100); // Adjust the max length as needed
+                    if (fact.length() < 8) {
+                        factTextView.setText(R.string.catfactshort);
+                    } else if (isValidFact(fact)) {
+                        fact = truncateFact(fact); // Truncate the fact if it's too long
                         factTextView.setText(fact);
                     } else {
-                        factTextView.setText(R.string.fact_not_suitable_for_display);
+                        factTextView.setText(R.string.catfactlong);
                     }
                 } else {
                     factTextView.setText(R.string.failed_to_load_fact);
                 }
-            }
+        }
 
             @Override
-            public void onFailure(Call<CatFact> call, Throwable t) {
+            public void onFailure(@NonNull Call<CatFact> call, @NonNull Throwable t) {
                 factTextView.setText(R.string.error_fetching_fact);
             }
         });
     }
 
+    // Methods to load cat and dog images from their respective APIs using Retrofit and Picasso
+
     private boolean isValidFact(String fact) {
         return fact.matches("[A-Za-z0-9 .,?!'-]*");
     }
 
-    private String truncateFact(String fact, int maxLength) {
-        return fact.length() > maxLength ? fact.substring(0, maxLength) + "..." : fact;
+    // Utility method to truncate a fact if it exceeds a specified length
+
+    private String truncateFact(String fact) {
+        return fact.length() > 100 ? fact.substring(0, 100) + "..." : fact;
     }
 
 
@@ -160,7 +187,7 @@ public class Generator extends AppCompatActivity {
 
         call.enqueue(new Callback<DogFactResponse>() {
             @Override
-            public void onResponse(Call<DogFactResponse> call, Response<DogFactResponse> response) {
+            public void onResponse(@NonNull Call<DogFactResponse> call, @NonNull Response<DogFactResponse> response) {
                 if (response.isSuccessful() && response.body() != null && !response.body().getData().isEmpty()) {
                     DogFactResponse.DogFact dogFact = response.body().getData().get(0);
                     factTextView.setText(dogFact.getFact());
@@ -169,7 +196,7 @@ public class Generator extends AppCompatActivity {
 
             @SuppressLint("SetTextI18n")
             @Override
-            public void onFailure(Call<DogFactResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<DogFactResponse> call, @NonNull Throwable t) {
                 factTextView.setText("Error fetching fact");
             }
         });
